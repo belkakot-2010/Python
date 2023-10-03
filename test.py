@@ -1,4 +1,4 @@
-name = 'Илья Муромец'
+name = input('Как зовут твоего персонажа? ')
 
 way_1 = False
 way_2 = False
@@ -47,7 +47,7 @@ while way_1 == False or way_2 == False or way_3 == False:
                 print(name, 'Убил княжну и освободил запертых молодцов')
                 way_3 = True
             else:
-                print(name,'Согласиль и был заточён в темницу, - возвращайся')
+                print(name,'Согласился и был заточён в темницу, - возвращайся')
                 continue
         else:
             print(name, 'Уже был сдесь едь в другое место')
