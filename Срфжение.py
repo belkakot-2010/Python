@@ -1,7 +1,7 @@
 from random import randint
 
 player_name = input('Как зовут твоего бойца? ')
-player_hp = 10
+player_hp = 100
 player_level = 1
 player_xp = 10
 money = 100
@@ -15,7 +15,7 @@ while True:
 
     if option == '1':
         enemy_name = 'Буйный плохиш'
-        enemy_hp = 10
+        enemy_hp = 100
         enemy_level = 1
         enemy_xp = 10
 
@@ -26,11 +26,13 @@ while True:
             print('У', enemy_name, 'оcталось', enemy_hp, 'жизней' )
             if enemy_hp <= 0:
                 print(player_name, 'Выиграл бой')
-                player_xp += enemy_xp        
+                player_xp += damage        
                 if player_xp >= 10:
                     player_level += player_xp // 10
-                    player_xp += enemy_xp % 10   
-                print(player_name, 'Погиб в бою')
+                    player_xp += enemy_xp % 10
+                    money += player_level * 100
+                    print('У', player_name, money, 'Монет')
+                print(enemy_name, 'Погиб в бою')
                 break        
 
             damage = randint(0, 10)
