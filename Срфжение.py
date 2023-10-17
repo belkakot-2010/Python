@@ -1,21 +1,20 @@
 from random import randint
 
 player_name = input('Как зовут твоего бойца? ')
-player_hp = 1050
+player_hp = 10
 player_level = 1
 player_xp = 10
-money = 0
+money = 100
 
 while True:
     print('1 - сражаться')
-    print('2 - играть в кости')
+    print('2 - поехать в трактир')
     print('0 - уйти')
     option = input('Введите номер ответа и нажмите энтер: ')
 
     if option == '1':
-
         enemy_name = 'Буйный плохиш'
-        enemy_hp = 100
+        enemy_hp = 10
         enemy_level = 1
         enemy_xp = 10
 
@@ -24,8 +23,8 @@ while True:
             enemy_hp -= damage
             print(player_name, 'ударил', enemy_name,'на', damage, 'жизней')
             print('У', enemy_name, 'оcталось', enemy_hp, 'жизней' )
-            if player_hp <= 0:
-                print(enemy_name, 'Выиграл бой')
+            if enemy_hp <= 0:
+                print(player_name, 'Выиграл бой')
                 player_xp += enemy_xp        
                 if player_xp >= 10:
                     player_level += player_xp // 10
@@ -37,34 +36,53 @@ while True:
             player_hp -= damage
             print(enemy_name, 'ударил', player_name,'на', damage, 'жизней')
             print('У', player_name, 'оcталось', player_hp, 'жизней' )
-            if enemy_hp <= 0:
-                print(player_name, 'Выиграл бой')
-                enemy_xp += player_xp
-                if enemy_xp >= 10:
-                    enemy_level += enemy_xp // 10
-                    enemy_xp += player_xp % 10              
-                print(enemy_name, 'Погиб в бою')
-                prize == player_level * 100
-                print(player_name, 'Получил', prize)
-                break
-        print(player_name, 'достиг', player_level, 'уровня')
-        print(enemy_name, 'достиг', enemy_level, 'уровня')      
+            if player_hp <= 0:            
+                print(player_name, 'Погиб в бою')              
+                break    
                         
     elif option == '2':
-        if money >= 100:
-            print('Играем')
-            bet = int(input('Сколько поставишь? '))
-            if bet >= money:
-                print('Ставка принята')
+        while True:
+            enemy_name = 'Буйный посетитель'
+            print(player_name, 'Приехал в таверну')
+            print('1 - Сыграть в кости с посетителем в кости')
+            print('0 - Уйти из таверны')
+            option = input('Выбери свои действия ')
+            if option == '1':
+                if money <= 0:
+                    print('У тебя не хватает денег!')
+                    continue
+                bet = int(input('Сколько поставишь? '))
+                if bet <= 0:
+                    print('Ставка не может быть меньше или равна нулю')
+                    continue
+                if bet > money:
+                    print('Cтавка не может быть больше кол-ва денег')
+                    continue
+                player_score = randint(2, 12)
+                enemy_score = randint(2, 12)
+                print(player_name, 'Выбросил', player_score)
+                print(enemy_name, 'Выбросил', enemy_score)
+                if player_score > enemy_score:
+                    money += bet
+                    print(player_name, 'получил', bet, 'монет')
+                elif player_score < enemy_score:
+                    money -= bet
+                    print(enemy_name, 'получил', bet, 'монет')
+                else:
+                    print('Ничья')
 
-                
+            elif option == '0':
+                print(player_name, 'уехал из таверны')
+                break
+                        
             else:
-                print('Нехватает денег, сбавь ставку')
-        else:
-            print('Денег нету')
-        
+                print('Нет такого варианта')              
+            
     elif option == '0':
         print(player_name, 'Уехал')
         break
-  
 
+    else:
+        print('Ето не существующий путь')
+  
+print('Конец игры')
