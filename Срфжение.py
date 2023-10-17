@@ -10,6 +10,7 @@ while True:
     print('1 - сражаться')
     print('2 - поехать в трактир')
     print('0 - уйти')
+    print('3 - магазин')
     option = input('Введите номер ответа и нажмите энтер: ')
 
     if option == '1':
@@ -76,8 +77,25 @@ while True:
                 break
                         
             else:
-                print('Нет такого варианта')              
+                print('Нет такого варианта')
+
+    elif option == '3':
+        print(player_name, 'Прибыл в магазин')
+        print('1 - оружие')
+        print('2 - броня')
+        print('3 - медикаменты')
+        print('0 - уйти')
+        option = int(input('Какой товар будете брать? '))        
+        if option == 1:
+        elif option == 2:
             
+        elif option == 3:
+            
+        elif option == 0:
+            print(player_name, 'Уехал из магазина')
+        else:
+            print('Нет такого варианта')
+        
     elif option == '0':
         print(player_name, 'Уехал')
         break
