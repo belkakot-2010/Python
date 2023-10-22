@@ -27,8 +27,17 @@ time += 510
 
 hours = time // 60
 min = time % 60
+
 if min < 10:
     plohaya_minuta = '0' + str(min)
-    print(hours, plohaya_minuta, sep=':')
 else:
-    print(hours, min, sep=':')
+    plohaya_minuta = min
+
+if hours > 24:
+    new_day = hours // 24
+else:
+    new_day = hours
+
+print(new_day, plohaya_minuta, sep = ':')
+
+
