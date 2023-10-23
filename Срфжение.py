@@ -4,7 +4,7 @@ player_name = input('Как зовут твоего бойца? ')
 player_hp = 100
 player_level = 1
 player_xp = 10
-money = 100
+money = 100000
 
 while True:
     print('1 - сражаться')
@@ -89,10 +89,91 @@ while True:
         print('0 - уйти')
         option = int(input('Какой товар будете брать? '))        
         if option == 1:
+            print('Нажми 1 если хочешь себе нож за 500')
+            print('Нажми 2 если хочешь себе меч за 1000')
+            print('Нажми 3 если хочешь себе топор за 1500')
+            option == input('Что выберешь ')
+            if option == 1:
+                if money > 500:
+                    money -= 500
+                    weapons = 1
+                    print(player_name, 'приобрёл нож')
+                else:
+                    print('У тебя нет денег')
+            elif option == 2:
+                if money > 1000:
+                    money -= 1000
+                    weapons = 2
+                    print(player_name, 'приобрёл меч')
+                else:
+                    print('У тебя нет денег')
+            elif option == 3:
+                if money > 1500:                    
+                    money -= 1500
+                    weapons = 3
+                    print(player_name, 'приобрёл топор')
+                else:
+                    print('У тебя нет денег')
+            else:
+                print('Нет такого варианта')
+                
         elif option == 2:
-            
+            print('Нажми 1 если хочешь себе кожанную куртку за 500')
+            print('Нажми 2 если хочешь себе кольчугу за 1000')
+            print('Нажми 3 если хочешь себе латы за 1500')
+            option == input('Что выберешь ')
+            if option == 1:
+                if money > 500:
+                    money -= 500
+                    armor = 1
+                    print(player_name, 'приобрёл кожанную куртку')
+                else:
+                     print('У тебя нет денег')
+            elif option == 2:
+                if money > 1000:
+                    money -= 1000
+                    armor = 2
+                    print(player_name, 'приобрёл кольчугу')                
+            elif option == 3:
+                if money > 1500: 
+                    money -= 1500
+                    armor = 3
+                    print(player_name, 'приобрёл латы')
+                else:
+                    print('У тебя нет денег')
+            else:
+                print('Нет такого варианта')
+                
         elif option == 3:
-            
+            print('Нажми 1 если хочешь себе лечебное зелье за 500')
+            print('Нажми 2 если хочешь себе зелье силы за 1000')
+            print('Нажми 3 если хочешь себе зелье защиты за 1500')
+            option == input('Что выберешь ')
+            if option == 1:
+                if money > 500:
+                    money -= 500
+                    potion = 1
+                    print(player_name, 'приобрёл лечебное зелье')
+                else:
+                     print('У тебя нет денег')
+            elif option == 2:
+                if money > 1000:
+                    money -= 1000
+                    potion = 2
+                    print(player_name, 'приобрёл зелье урона')
+                else:
+                     print('У тебя нет денег')  
+            elif option == 3:
+                if money > 1500: 
+                    money -= 1500
+                    potion = 3
+                    print(player_name, 'зелье защиты')
+                else:
+                     print('У тебя нет денег')
+            else:
+                print('Нет такого варианта')
+
+       
         elif option == 0:
             print(player_name, 'Уехал из магазина')
         else:
