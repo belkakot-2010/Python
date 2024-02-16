@@ -10,6 +10,7 @@
 '''
 
 from os import system
+from random import choice
 
 
 BatleField = ['.'] * 9
@@ -34,17 +35,23 @@ def make_move_human(BatleField: list, player: str) -> None:
         break
 
 
-def make_move_comp(BatleField: list, player: str) -> None:
+def make_move_comp(BatleField: list, player: str, is_center: bool) -> None:
     cells_index = []
     for i in range(9):
         if BatleField[i] == '.':
-            BatleField.append(i)
+            cells_index.append(i)
+        if is_center and 4 in cells_index:
+            BatleField[4] = player
+        else:
+            random_index = choice(cells_index)
+            BatleField[random_index] = player
+
 
 
 def get_winner(BatleField: list, player: str) -> str:
     for i in range(0, 7, 3):
         if BatleField[i] == BatleField[i + 1] == BatleField[i + 2] == player:
-            return player
+            return player        
 
     for i in range(0, 3, 1):
         if BatleField[i] == BatleField[i + 3] == BatleField[i + 6] == player:
@@ -72,10 +79,12 @@ while True:
     draw_field(BatleField)
     if moves % 2:
         player = player_1
+        make_move_human(BatleField, player)
     else:
         player = player_2
-    make_move_human(BatleField, player)
-    moves += 1
+        make_move_comp(BatleField, player)
+        
+    moves += 1    
     winner = get_winner(BatleField, player)
     if winner: 
         draw_field(BatleField)
