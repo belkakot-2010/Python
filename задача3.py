@@ -1,13 +1,23 @@
-nums = [23, 23, 6, 17, 43, 0, 23, 67, 782, 34]
-j = nums[0]
+'''Задача 3'''
 
-n = len(nums)
-col = 0
-for i in range(n):
-    for j in range(0, n-i-1):
-        if nums[j] > nums[j+1]:
-            nums[j], nums[j+1] = nums[j+1], nums[j]
+nums = input('Введите элементы списка через пробел: ').split
+for i in range(len(nums)):
+    nums[i] = int(nums[i])
+
+
+def Buble_cort(nums: list) -> None:
+    col = 0
+    for num_index in range(len(nums) - 1):
+        for i in range(num_index, len(nums) - 1):
             col += 1
+            if nums[i] > nums[i+1]:
+                if nums[i] < nums[i + 1]:
+                    nums[i], nums[i+1] = nums[i+1], nums[i]
+
+    return col    
+
 
 print(nums)
+Buble_cort(nums)
+col = Buble_cort(nums)
 print(col)

@@ -1,17 +1,19 @@
-a = input('')
-b = input('')
-c = input('')
-a = float(a)
-b = float(b)
-c = float(c)
+'''Задача 4'''
+
+print('Введите коэффицент квадратного уравнения')
+print('Введите коэффицент a')
+a = int(input(''))
+print('Введите коэффицент b')
+b = int(input(''))
+print('Введите коэффицент c')
+c = int(input(''))
 d = b**2 - 4*a*c
 if d < 0:
-    print('')
+    print('Корни квадратного уравнения: нет')
 elif d == 0:
     x = -b / (2 * a)
-    print(str(x))
+    print('Корни квадратного уравнения:', str(x))
 else:
     x1 = (-b + d ** 0.5) / (2 * a)
     x2 = (-b - d ** 0.5) / (2 * a)
-    print(str(x1))
-    print(str(x2))
+    print('Корни квадратного уравнения:', str(x1), 'и', str(x2))
