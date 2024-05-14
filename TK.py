@@ -2,8 +2,27 @@ import tkinter as tk
 import random
 import datetime
 import question
+import os
 
 questions = question.questions
+
+full_path = __file__
+directory_path = os.path.dirname(full_path)
+
+imags_path = os.path.join(directory_path, 'img')
+
+imags_path = os.path.join(directory_path, '01.png')
+
+
+window = tk.Tk()
+
+photo_image = tk.PhotoImage(file=imags_path)
+
+tk.Lable(window, image=photo_image).pack()
+
+window.mainloop
+print(directory_path)
+
 
 class App:
     def __init__(self, shuffle_question=False) -> None:
@@ -23,12 +42,13 @@ class App:
         self.incorrect_answers = None
         self.shuffle_question = None
 
+        self.total_time = None
         self.start_time = None
         self.end_time = None
+        self.images_path = os.path.join(os.path.dirname(__file__))
 
         self.start()
         self.window.mainloop()
-
 
     def start(self) -> None:
         self.start_time = datetime.datetime.now()
@@ -45,10 +65,15 @@ class App:
     def show_question(self) -> None:
         question = questions[self.question_index]
         tk.Label(self.main_frame, text=question['Текст вопроса']).pack(pady=(0, 30))
+        image_name = question.get('изображение')
+        if image_name is not None:
+            file = os.path.joine(self.images_path, image_name)
+            photo_image = tk.PhotoImage(file=file)
+            tk.Label(self.main_frame, image=photo_image).pack()
         Buttons_frame = tk.Frame(self.main_frame)
         Buttons_frame.pack()
         for answer in question['Варианты ответов']:
-            tk.Button(Buttons_frame='left', text=answer, command= lambda arg=answer: self.on_button(arg)).pack(side='left', padx=(0,15))
+            tk.Button(Buttons_frame='left', text=answer, command=lambda arg=answer: self.on_button(arg)).pack(side='left', padx=(0, 15))
 
     def on_button(self, button_text) -> None:
         question = questions[self.question_index]
@@ -68,13 +93,11 @@ class App:
 
     def show_result(self) -> None:
         self.end_time = datetime.datetime.now()
-        total_time = self.start_time - self.end_time
+        self.total_time = self.start_time - self.end_time
         tk.Label(self.main_frame, text=f'верно: {self.correct_answers}').pack()
         tk.Label(self.main_frame, text=f'неверно: {self.incorrect_answers}').pack()
         tk.Label(self.main_frame, text=f'время: {self.total_time}').pack()
         tk.Button(self.main_frame, text='заново', command=self.start()).pack()
-
-
 
 
 App(shuffle_question=True)
