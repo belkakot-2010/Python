@@ -3,25 +3,9 @@ import random
 import datetime
 import question
 import os
+from PIL import Image, ImageTk
 
 questions = question.questions
-
-full_path = __file__
-directory_path = os.path.dirname(full_path)
-
-imags_path = os.path.join(directory_path, 'img')
-
-imags_path = os.path.join(directory_path, '01.png')
-
-
-window = tk.Tk()
-
-photo_image = tk.PhotoImage(file=imags_path)
-
-tk.Lable(window, image=photo_image).pack()
-
-window.mainloop
-print(directory_path)
 
 
 class App:
@@ -36,6 +20,7 @@ class App:
 
         self.main_frame = tk.Frame(self.window)
         self.main_frame.place(relx=0.5, rely=0.5, anchor='center')
+        self.pady = 30
 
         self.question_index = None
         self.correct_answers = None
@@ -49,6 +34,14 @@ class App:
 
         self.start()
         self.window.mainloop()
+
+    def get_total_hieght(self) -> int:
+        total_height = 0
+        for widgets in self.main_frame.winfo_children():
+            widget.update()
+            total_height += wieght.winfo_height()
+            total_hieght += self.pady
+        return total_height
 
     def start(self) -> None:
         self.start_time = datetime.datetime.now()
@@ -64,16 +57,32 @@ class App:
 
     def show_question(self) -> None:
         question = questions[self.question_index]
-        tk.Label(self.main_frame, text=question['Текст вопроса']).pack(pady=(0, 30))
+        tk.Label(self.main_frame, text=question['Текст вопроса']
+                 ).pack(pady=(0, self.pady))
+
         image_name = question.get('изображение')
-        if image_name is not None:
-            file = os.path.joine(self.images_path, image_name)
-            photo_image = tk.PhotoImage(file=file)
-            tk.Label(self.main_frame, image=photo_image).pack()
+
+        if image_name:
+            image_Label = tk.Label(self.main_frame)
+
         Buttons_frame = tk.Frame(self.main_frame)
         Buttons_frame.pack()
         for answer in question['Варианты ответов']:
-            tk.Button(Buttons_frame='left', text=answer, command=lambda arg=answer: self.on_button(arg)).pack(side='left', padx=(0, 15))
+            tk.Button(Buttons_frame='left', text=answer,
+                      command=lambda arg=answer: self.on_button(arg)
+                      ).pack(side='left', padx=(0, 15))
+
+        if image_name:
+            image_hieght = self.window.winfo_height() - self.get_total_hieght()
+            image_hieght -= 100
+            file_path = os.path.dirname(__file__)
+            image_file = os.path.joine(file_path, 'img', image_name)
+            img = Image.open(image_file)
+            aspect_ratio = img.wight / img.hieght
+            image_wieght = int(500 * aspect_ratio)
+            img = img.resize((image_wieght, 500))
+            self.image_tk = ImageTk.PhotoImage(img)
+            image_Label['image'] = self.image_tk
 
     def on_button(self, button_text) -> None:
         question = questions[self.question_index]
@@ -95,7 +104,8 @@ class App:
         self.end_time = datetime.datetime.now()
         self.total_time = self.start_time - self.end_time
         tk.Label(self.main_frame, text=f'верно: {self.correct_answers}').pack()
-        tk.Label(self.main_frame, text=f'неверно: {self.incorrect_answers}').pack()
+        tk.Label(self.main_frame, text=f'неверно: {self.incorrect_answers}'
+                 ).pack()
         tk.Label(self.main_frame, text=f'время: {self.total_time}').pack()
         tk.Button(self.main_frame, text='заново', command=self.start()).pack()
 
